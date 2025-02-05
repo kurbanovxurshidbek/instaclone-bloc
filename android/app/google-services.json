@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "239488425826",
+    "project_id": "intaclone-3-2",
+    "storage_bucket": "intaclone-3-2.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:239488425826:android:033c1fb6261c410963563b",
+        "android_client_info": {
+          "package_name": "com.nextgen.instaclonebloc"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAaMHeV5oQSzjPhRoF0e3JGcGfAUA7th_0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

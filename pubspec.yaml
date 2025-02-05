@@ -1,0 +1,59 @@
+name: instaclonebloc
+description: "A new Flutter project."
+
+version: 1.0.0+1
+
+environment:
+  sdk: ^3.5.4
+
+dependencies:
+  flutter:
+    sdk: flutter
+
+  cupertino_icons: ^1.0.8
+  # BloC
+  bloc: ^8.1.0
+  flutter_bloc: ^8.1.1
+  equatable: ^2.0.5
+
+  # Images
+  image_picker: ^1.1.2
+  cached_network_image: ^3.2.2
+  eva_icons_flutter: ^3.1.0
+
+  # Firebase
+  firebase_core: ^3.10.1
+  firebase_auth: ^5.4.1
+  firebase_storage: ^12.4.1
+  cloud_firestore: ^5.6.2
+  firebase_messaging: ^15.2.1
+  flutter_local_notifications: ^17.0.1
+
+  # Message
+  logger: ^2.2.0
+  fluttertoast: ^8.2.4
+
+  # Local Cache
+  shared_preferences: ^2.4.0
+
+  # Device
+  device_info_plus: ^11.2.2
+
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+
+  flutter_lints: ^4.0.0
+
+flutter:
+
+  uses-material-design: true
+
+  # assets:
+  #   - images/a_dot_burr.jpeg
+
+  # fonts:
+  #   - family: Schyler
+  #     fonts:
+  #       - asset: fonts/Schyler-Regular.ttf
