@@ -8,6 +8,8 @@ import 'package:instaclonebloc/services/auth_service.dart';
 import 'package:instaclonebloc/services/log_service.dart';
 
 import '../bloc/home_event.dart';
+import '../bloc/image_picker_bloc.dart';
+import '../bloc/my_upload_bloc.dart';
 import '../bloc/signin_bloc.dart';
 import 'my_feed_page.dart';
 import 'my_likes_page.dart';
@@ -48,7 +50,15 @@ class _HomePageState extends State<HomePage> {
             children: [
               MyFeedPage(),
               MySearchPage(),
-              MyUploadPage(),
+
+              MultiBlocProvider(
+                providers: [
+                  BlocProvider(create: (context) => MyUploadBloc(),),
+                  BlocProvider(create: (context) => ImagePickerBloc(),),
+                ],
+                child: MyUploadPage(pageController: pageController,),
+              ),
+
               MyLikesPage(),
               MyProfilePage(),
             ],

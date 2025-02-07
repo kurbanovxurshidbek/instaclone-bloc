@@ -8,8 +8,10 @@ import 'package:instaclonebloc/bloc/signup_state.dart';
 import 'package:instaclonebloc/pages/home_page.dart';
 import 'package:instaclonebloc/services/prefs_service.dart';
 
+import '../models/member_model.dart';
 import '../pages/signin_page.dart';
 import '../services/auth_service.dart';
+import '../services/db_service.dart';
 import 'home_bloc.dart';
 
 class SignUpBloc extends Bloc<SignUpEvent, SignUpState> {
@@ -26,11 +28,15 @@ class SignUpBloc extends Bloc<SignUpEvent, SignUpState> {
 
     if (firebaseUser != null) {
       _saveMemberIdToLocal(firebaseUser);
-      //_saveMemberToCloud(Member(event.fullname, event.email));
+      _saveMemberToCloud(Member(event.fullname, event.email));
       emit(SignUpSuccessState());
     } else {
       emit(SignUpFailureState("Check information again"));
     }
+  }
+
+  _saveMemberToCloud(Member member)async{
+    await DBService.storeMember(member);
   }
 
   _saveMemberIdToLocal(User firebaseUser) async {
