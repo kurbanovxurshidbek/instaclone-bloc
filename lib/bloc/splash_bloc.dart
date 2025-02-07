@@ -10,6 +10,8 @@ import 'package:instaclonebloc/pages/home_page.dart';
 import 'package:instaclonebloc/pages/signin_page.dart';
 import 'package:instaclonebloc/services/auth_service.dart';
 
+import 'home_bloc.dart';
+
 class SplashBloc extends Bloc<SplashEvent, SplashState>{
 
   SplashBloc(): super(SplashInitialState()){
@@ -24,11 +26,13 @@ class SplashBloc extends Bloc<SplashEvent, SplashState>{
 
   callNextPage(BuildContext context){
     if(AuthService.isLoggedIn()){
-      Navigator.pushReplacement(context, MaterialPageRoute(
-          builder: (context) {
-            return HomePage();
-          }
-      ));
+      Navigator.pushReplacement(
+          context,
+          MaterialPageRoute(
+              builder: (context) => BlocProvider(
+                create: (context) => HomeBloc(),
+                child: HomePage(),
+              )));
     }else{
       Navigator.pushReplacement(context, MaterialPageRoute(
           builder: (context) {

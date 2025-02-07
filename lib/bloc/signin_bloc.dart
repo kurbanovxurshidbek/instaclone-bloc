@@ -3,6 +3,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:instaclonebloc/bloc/home_bloc.dart';
 import 'package:instaclonebloc/bloc/signin_event.dart';
 import 'package:instaclonebloc/bloc/signin_state.dart';
 import 'package:instaclonebloc/bloc/signup_bloc.dart';
@@ -34,7 +35,12 @@ class SignInBloc extends Bloc<SignInEvent, SignInState> {
 
   callHomePage(BuildContext context) {
     Navigator.pushReplacement(
-        context, MaterialPageRoute(builder: (context) => HomePage()));
+        context,
+        MaterialPageRoute(
+            builder: (context) => BlocProvider(
+                  create: (context) => HomeBloc(),
+                  child: HomePage(),
+                )));
   }
 
   callSignUpPage(BuildContext context) {

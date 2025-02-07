@@ -10,6 +10,7 @@ import 'package:instaclonebloc/services/prefs_service.dart';
 
 import '../pages/signin_page.dart';
 import '../services/auth_service.dart';
+import 'home_bloc.dart';
 
 class SignUpBloc extends Bloc<SignUpEvent, SignUpState> {
   SignUpBloc() : super(SignUpInitialState()) {
@@ -20,7 +21,8 @@ class SignUpBloc extends Bloc<SignUpEvent, SignUpState> {
       SignedUpEvent event, Emitter<SignUpState> emit) async {
     emit(SignUpLoadingState());
 
-    User? firebaseUser = await AuthService.signUpUser(event.context, event.email, event.password);
+    User? firebaseUser = await AuthService.signUpUser(
+        event.context, event.email, event.password);
 
     if (firebaseUser != null) {
       _saveMemberIdToLocal(firebaseUser);
@@ -37,7 +39,12 @@ class SignUpBloc extends Bloc<SignUpEvent, SignUpState> {
 
   callHomePage(BuildContext context) {
     Navigator.pushReplacement(
-        context, MaterialPageRoute(builder: (context) => HomePage()));
+        context,
+        MaterialPageRoute(
+            builder: (context) => BlocProvider(
+                  create: (context) => HomeBloc(),
+                  child: HomePage(),
+                )));
   }
 
   callSignInPage(BuildContext context) {
