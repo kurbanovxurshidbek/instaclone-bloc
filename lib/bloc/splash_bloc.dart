@@ -2,9 +2,13 @@
 import 'package:bloc/bloc.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:instaclonebloc/bloc/signin_bloc.dart';
 import 'package:instaclonebloc/bloc/splash_event.dart';
 import 'package:instaclonebloc/bloc/splash_state.dart';
 import 'package:instaclonebloc/pages/home_page.dart';
+import 'package:instaclonebloc/pages/signin_page.dart';
+import 'package:instaclonebloc/services/auth_service.dart';
 
 class SplashBloc extends Bloc<SplashEvent, SplashState>{
 
@@ -19,10 +23,21 @@ class SplashBloc extends Bloc<SplashEvent, SplashState>{
   }
 
   callNextPage(BuildContext context){
-    Navigator.pushReplacement(context, MaterialPageRoute(
-      builder: (context) {
-        return HomePage();
-      }
-    ));
+    if(AuthService.isLoggedIn()){
+      Navigator.pushReplacement(context, MaterialPageRoute(
+          builder: (context) {
+            return HomePage();
+          }
+      ));
+    }else{
+      Navigator.pushReplacement(context, MaterialPageRoute(
+          builder: (context) {
+            return BlocProvider(
+              create: (context) => SignInBloc(),
+              child: SignInPage(),
+            );
+          }
+      ));
+    }
   }
 }
