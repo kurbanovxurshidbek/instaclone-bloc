@@ -261,7 +261,7 @@ class DBService {
     }
   }
 
-  static Future removePostsToMyFeed(Member someone) async {
+  static Future removePostsFromMyFeed(Member someone) async {
     List<Post> posts = [];
 
     var querySnapshot = await _firestore

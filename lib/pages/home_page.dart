@@ -7,8 +7,17 @@ import 'package:instaclonebloc/pages/signin_page.dart';
 import 'package:instaclonebloc/services/auth_service.dart';
 import 'package:instaclonebloc/services/log_service.dart';
 
+import '../bloc/axis_count_bloc.dart';
+import '../bloc/follow_member_bloc.dart';
 import '../bloc/home_event.dart';
 import '../bloc/image_picker_bloc.dart';
+import '../bloc/like_post_bloc.dart';
+import '../bloc/my_feed_bloc.dart';
+import '../bloc/my_likes_bloc.dart';
+import '../bloc/my_photo_bloc.dart';
+import '../bloc/my_posts_bloc.dart';
+import '../bloc/my_profile_bloc.dart';
+import '../bloc/my_search_bloc.dart';
 import '../bloc/my_upload_bloc.dart';
 import '../bloc/signin_bloc.dart';
 import 'my_feed_page.dart';
@@ -43,28 +52,73 @@ class _HomePageState extends State<HomePage> {
       builder: (context, state) {
         return Scaffold(
           body: PageView(
-            onPageChanged: (int index){
+            onPageChanged: (int index) {
               homeBloc.add(PageViewEvent(currentIndex: index));
             },
             controller: pageController,
             children: [
-              MyFeedPage(),
-              MySearchPage(),
-
               MultiBlocProvider(
                 providers: [
-                  BlocProvider(create: (context) => MyUploadBloc(),),
-                  BlocProvider(create: (context) => ImagePickerBloc(),),
+                  BlocProvider(
+                    create: (context) => MyFeedBloc(),
+                  ),
+                  BlocProvider(
+                    create: (context) => LikePostBloc(),
+                  ),
                 ],
-                child: MyUploadPage(pageController: pageController,),
+                child: MyFeedPage(
+                  pageController: pageController,
+                ),
               ),
-
-              MyLikesPage(),
-              MyProfilePage(),
+              MultiBlocProvider(
+                providers: [
+                  BlocProvider(
+                    create: (context) => MySearchBloc(),
+                  ),
+                  BlocProvider(
+                    create: (context) => FollowMemberBloc(),
+                  ),
+                ],
+                child: const MySearchPage(),
+              ),
+              MultiBlocProvider(
+                providers: [
+                  BlocProvider(
+                    create: (context) => MyUploadBloc(),
+                  ),
+                  BlocProvider(
+                    create: (context) => ImagePickerBloc(),
+                  ),
+                ],
+                child: MyUploadPage(
+                  pageController: pageController,
+                ),
+              ),
+              BlocProvider(
+                create: (context) => MyLikedBloc(),
+                child: const MyLikesPage(),
+              ),
+              MultiBlocProvider(
+                providers: [
+                  BlocProvider(
+                    create: (context) => MyProfileBloc(),
+                  ),
+                  BlocProvider(
+                    create: (context) => MyPostsBloc(),
+                  ),
+                  BlocProvider(
+                    create: (context) => AxisCountBloc(),
+                  ),
+                  BlocProvider(
+                    create: (context) => MyPhotoBloc(),
+                  ),
+                ],
+                child: const MyProfilePage(),
+              ),
             ],
           ),
           bottomNavigationBar: CupertinoTabBar(
-            onTap: (int index){
+            onTap: (int index) {
               homeBloc.add(BottomNavEvent(currentIndex: index));
               pageController.animateToPage(index,
                   duration: const Duration(milliseconds: 200),
